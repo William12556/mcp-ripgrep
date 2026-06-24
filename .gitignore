@@ -35,10 +35,12 @@ coverage.xml
 
 # AI framework
 deprecated/
-ai/workspace/admin/
+ai/workspace/report/
 ai/workspace/ai/
 ai/workspace/proposal/
 ai/workspace/proposal/closed/
+ai/state/
+ai/dashboard-alerts.md
 
 # Tactical Domain
 CLAUDE.local.md
