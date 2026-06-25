@@ -6,6 +6,8 @@ authors = [{name = "William Watson"}]
 license = {text = "MIT"}
 requires-python = ">=3.9"
 dependencies = [
+    "mcp>=1.27,<2",
+    "pydantic>=2.0.0",
 ]
 
 [project.optional-dependencies]
@@ -13,11 +15,21 @@ dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
     "pytest-cov>=4.0.0",
+    "black>=24.0.0",
+    "isort>=5.12.0",
+    "flake8>=7.0.0",
+    "mypy>=1.8.0",
 ]
+
+[project.scripts]
+mcp-ripgrep = "mcp_ripgrep.__main__:main"
 
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
@@ -37,3 +49,44 @@ exclude_lines = [
     "raise AssertionError",
     "raise NotImplementedError",
 ]
+
+[tool.black]
+line-length = 88
+target-version = ["py39"]
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+    | \.venv
+    | venv
+    | build
+    | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip = [".git", ".venv", "venv", "build", "dist"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+show_error_codes = true
+exclude = [
+    "venv",
+    "build",
+    "dist",
+]
+
+[[tool.mypy.overrides]]
+module = ["mcp.*"]
+ignore_missing_imports = true
+
